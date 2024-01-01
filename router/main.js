@@ -1,11 +1,14 @@
 import express from 'express';
-import redisClient from '../redis.js';
+import redisClient, { getHistory, setHistory } from '../redis.js';
 const Router = express.Router();
 
-Router.get('/', async (req, res) => {
-  await redisClient.set('key', 'value');
-  const value = await redisClient.get('key');
-  res.send(value);
+Router.get('/history', async (req, res) => {
+  const result = await setHistory('123', '1');
+  console.log(result);
 });
 
+Router.get('/get', async (req, res) => {
+  const result = await getHistory('1');
+  console.log(result);
+});
 export default Router;

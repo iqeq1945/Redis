@@ -10,6 +10,7 @@ import mainRouter from './router/main.js';
 dotenv.config(); // env환경변수 파일 가져오기
 const app = express();
 const port = 3000;
+
 // Other settings
 app.use(cors());
 app.use(json());

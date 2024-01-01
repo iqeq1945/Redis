@@ -10,4 +10,23 @@ const redisClient = await createClient({
   .on('error', (err) => console.log('Redis Client Error', err))
   .connect();
 
+export const setHistory = async (keyword, id) => {
+  try {
+    return await redisClient.zAdd(`keyword`, [
+      { score: Date.now(), value: keyword },
+    ]);
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+};
+
+export const getHistory = async (keyword, id) => {
+  try {
+    return await redisClient.zRange(`keyword`, -5, -1);
+  } catch (e) {
+    console.log(e);
+    next(e);
+  }
+};
 export default redisClient;
